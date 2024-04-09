@@ -26,7 +26,7 @@ library(mfx)
 library(ggeffects)
 library(DescTools)
 
-######################################## CHARGEMENT BASE DE DONNÉES ########################################
+######################################## CHARGEMENT BASE DE DONNÃ‰ES ########################################
 
 data("HealthInsurance")
 attach(HealthInsurance)
@@ -63,8 +63,8 @@ table <- table(data$health)
 
 prop.table(table)
 
-barplot(table, main="Répartition des modalités de la santé", 
-        xlab="Modalités",
+barplot(table, main="RÃ©partition des modalitÃ©s de la santÃ©", 
+        xlab="ModalitÃ©s",
         col="orange")
 
 # Insurance
@@ -73,8 +73,8 @@ table_2 <- table(data$insurance)
 
 prop.table(table_2)
 
-barplot(table_2, main="Répartition des modalités de l'assurance", 
-        xlab="Modalités",
+barplot(table_2, main="RÃ©partition des modalitÃ©s de l'assurance", 
+        xlab="ModalitÃ©s",
         col="orange")
 
 # Education
@@ -83,13 +83,13 @@ table_3 <- table(data$education)
 
 prop.table(table_3)
 
-barplot(table_3, main="Répartition des modalités au niveau du diplôme", 
-        xlab="Modalités",
+barplot(table_3, main="RÃ©partition des modalitÃ©s au niveau du diplÃ´me", 
+        xlab="ModalitÃ©s",
         col="orange")
 
 ######################################## REGRESSION LOGIT BINAIRE ########################################
 
-# Régression logistique binaire
+# RÃ©gression logistique binaire
 
 reg <- glm(health ~ age + insurance + family + married, family = binomial(logit), data = HealthInsurance)
 reg
@@ -116,7 +116,7 @@ stargazer(reg, type="html", coef=list(logit.or), p.auto=FALSE, out="logitor.htm"
 EFBinaire <- logitmfx(health ~ insurance + family + married, data=HealthInsurance)
 EFBinaire 
 
-# Prédictions logistique binaire 
+# PrÃ©dictions logistique binaire 
 
 prob = predict(reg, type="response")
 reg_predict <- cbind(HealthInsurance, prob)
@@ -127,7 +127,7 @@ ggplot(reg_predict, aes(x = health, y = prob, color = as.factor(insurance))) +
   scale_color_brewer(palette = "Dark2")
 
 
-# Représentation graphique de l'effet de l'âge et de la famille
+# ReprÃ©sentation graphique de l'effet de l'Ã¢ge et de la famille
 
 plot(ggeffect(reg, "age"))
 plot(ggeffect(reg, "family"))
@@ -139,7 +139,7 @@ pseudologit <- PseudoR2(reg, which = "all")
 
 stargazer(pseudologit, title="Tests Pseudo R^2 / Binaire", align=TRUE, type = 'latex', header=FALSE, out="tests1.html")
 
-# ANOVA ( on a pas pu le mettre dans la prÃ©sentation )
+# ANOVA ( on a pas pu le mettre dans la prÃƒÂ©sentation )
 
 reg_anova <- glm(health ~ 1, data = HealthInsurance, family = binomial(logit))
 anova1 <- anova(reg, reg_anova, test="LR")
@@ -152,7 +152,7 @@ rapport_vraisemblance_binaire = 2*(logLik(reg)-logLik(reg_anova))
 
 ######################################## REGRESSION PROBIT BINAIRE ########################################
 
-# Régression logistique binaire
+# RÃ©gression logistique binaire
 
 reg2 <- glm(health ~ age + insurance + family + married, family = binomial(probit), data = HealthInsurance)
 reg2
@@ -167,7 +167,7 @@ stargazer(reg2, title="Regression probit binaire", align=TRUE, type = 'latex', h
 EFBinaire2 <- probitmfx(health ~ insurance + family + married, data=HealthInsurance)
 EFBinaire2
 
-# Prédictions probit binaire 
+# PrÃ©dictions probit binaire 
 
 prob2 = predict(reg2, type="response")
 reg_predict2 <- cbind(HealthInsurance, prob2)
@@ -178,7 +178,7 @@ ggplot(reg_predict2, aes(x = health, y = prob2, color = as.factor(insurance))) +
   scale_color_brewer(palette = "Dark2")
 
 
-# Représentation graphique de l'effet du salaire
+# ReprÃ©sentation graphique de l'effet du salaire
 
 plot(ggeffect(reg2, "age"))
 plot(ggeffect(reg2, "family"))
@@ -190,7 +190,7 @@ pseudoprobit <- PseudoR2(reg2, which = "all")
 
 stargazer(pseudoprobit, title="Tests Probit Pseudo R^2 / Binaire", align=TRUE, type = 'latex', header=FALSE, out="tests2.html")
 
-# ANOVA ( on a pas pu le mettre dans la prÃ©sentation )
+# ANOVA ( on a pas pu le mettre dans la prÃƒÂ©sentation )
 
 reg_anova <- glm(health ~ 1, data = HealthInsurance, family = binomial(logit))
 anova2 <- anova(reg2, reg_anova, test="LR")
