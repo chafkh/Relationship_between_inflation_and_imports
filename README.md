@@ -1,3 +1,1 @@
-# Academic-projects
-Bonjour, nous allons vous présenter une étude économétrique que j'ai réalisé en 1ère année de master sur le sujet suivant : La relation entre l’inflation et les 
-importations.
+Hello, we are going to present you an econometric study that I realized in 1st year of master on the following subject: The relationship between inflation and imports.
